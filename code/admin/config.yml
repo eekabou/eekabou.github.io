@@ -1,6 +1,6 @@
 # 1. 백엔드 설정 (GitHub Pages용)
 backend:
-  name: github # 'git-gateway'에서 'github'으로 다시 변경
+  name: github 
   repo: eekabou/code 
   branch: main 
 
@@ -85,8 +85,13 @@ collections:
                   { label: "부서(공통값, HTML)", name: "deptVal", widget: "markdown" },
                   { label: "오시는길(제목)", name: "directionsTitle", widget: "string" },
                   { label: "대중교통(명칭)", name: "publicTransport", widget: "string" },
+                  
+                  # ▼▼▼ [오류 수정됨] 'field:' 속성을 제거했습니다. ▼▼▼
                   { label: "대중교통(목록)", name: "publicList", widget: "list" },
+                  
                   { label: "자가용(명칭)", name: "car", widget: "string" },
+                  
+                  # ▼▼▼ [오류 수정됨] 'field:' 속성을 제거했습니다. ▼▼▼
                   { label: "자가용(목록)", name: "carList", widget: "list" }
                 ] },
               { label: "고객지원 탭 (정적)", name: "support", widget: "object", fields: [
@@ -171,10 +176,18 @@ collections:
                 ] },
               { label: "사업분야 카드", name: "cards", widget: "object", fields: [
                   { label: "ITS 제목", name: "itsTitle", widget: "string" },
+
+                  # ▼▼▼ [오류 수정됨] 'field:' 속성을 제거했습니다. ▼▼▼
                   { label: "ITS 목록", name: "itsList", widget: "list" },
+                  
                   { label: "안전시설물 제목", name: "safetyTitle", widget: "string" },
+                  
+                  # ▼▼▼ [오류 수정됨] 'field:' 속성을 제거했습니다. ▼▼▼
                   { label: "안전시설물 목록", name: "safetyList", widget: "list" },
+                  
                   { label: "통신장비 제목", name: "telecomTitle", widget: "string" },
+                  
+                  # ▼▼▼ [오류 수정됨] 'field:' 속성을 제거했습니다. ▼▼▼
                   { label: "통신장비 목록", name: "telecomList", widget: "list" }
                 ] },
               { label: "프로젝트 섹션 (정적)", name: "projects", widget: "object", fields: [
