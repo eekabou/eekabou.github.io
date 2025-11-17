@@ -1,3 +1,4 @@
+// [수정됨] 스크립트 전체를 DOMContentLoaded 이벤트 리스너로 묶어 안정성을 확보합니다.
 document.addEventListener("DOMContentLoaded", async () => {
     
     // --- 헬퍼 함수 ---
@@ -12,11 +13,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
     // --- 동적 목록 생성 함수들 ---
-
+    
     // index.html: 뉴스 생성
     const createNewsItem = (item) => {
         const a = document.createElement('a');
-        a.href = '#'; // 링크가 필요하면 JSON에 추가
+        a.href = '#'; 
         a.className = 'support-card';
         a.innerHTML = `
             <div class="card-left">
@@ -119,38 +120,32 @@ document.addEventListener("DOMContentLoaded", async () => {
         `;
         return tr;
     };
-
-    // --- 메인 콘텐츠 로더 ---
+    
+    // --- [수정됨] 콘텐츠 로딩 로직 ---
+    let content = null;
     try {
-        // [수정됨] 경로를 /code/main/content.json에서 ../main/content.json으로 변경
-        // (각 HTML에서 상대 경로로 찾는 것이 더 안정적임)
-        const response = await fetch('../main/content.json'); 
-        if (!response.ok) {
-            // main/index.html의 경우 경로가 다름
-            const mainResponse = await fetch('content.json');
-            if (!mainResponse.ok) {
-                throw new Error(`content.json을 불러올 수 없습니다.`);
-            }
-            return await mainResponse.json();
+        // [수정됨] 각 HTML 페이지의 상대 경로에 맞게 content.json을 찾습니다.
+        // aboutCompany.html, experience.html, tech.html 등은 '../main/content.json'
+        let fetchPath = '../main/content.json';
+        
+        // main/index.html의 경우 경로가 'content.json'
+        if (document.body.id === 'page-index') {
+            fetchPath = 'content.json';
         }
-        return await response.json();
+
+        const response = await fetch(fetchPath);
+        if (!response.ok) {
+            throw new Error(`${fetchPath}를 불러올 수 없습니다: ${response.statusText}`);
+        }
+        content = await response.json();
 
     } catch (error) {
-        // main/index.html의 경우를 대비한 2차 시도
-        try {
-            const mainResponse = await fetch('content.json');
-            if (!mainResponse.ok) throw new Error(error);
-            return await mainResponse.json();
-        } catch (finalError) {
-             console.error('콘텐츠 로딩 중 오류 발생:', finalError);
-             return null; // 오류 발생 시 null 반환
-        }
+        console.error('콘텐츠 로딩 중 오류 발생:', error);
+        return; // 콘텐츠 로딩 실패 시 스크립트 중단
     }
 
-})()
-.then(content => {
-    // [수정됨] content가 null이면(로딩 실패) 아무것도 실행하지 않음
-    if (!content) return; 
+    // --- [수정됨] DOM 조작 로직 ---
+    // (content가 성공적으로 로드된 경우에만 실행됩니다)
 
     // --- 1. 공통 콘텐츠 ---
     const c = content.common;
@@ -161,7 +156,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         setText('nav-link-experience', c.nav.experience);
         setText('nav-link-tech', c.nav.tech);
         
-        // 공통 푸터
         setText('footer-company-name', c.companyName);
         setHTML('footer-address', c.footer.address); 
         setText('footer-phone', c.footer.phone);
@@ -176,40 +170,35 @@ document.addEventListener("DOMContentLoaded", async () => {
     const footerBizLinks = document.getElementById('footer-biz-links');
     const footerSupportLinks = document.getElementById('footer-support-links');
     
-    // [수정됨] footerBizLinks가 null이 아닐 때만 실행
     if (footerBizLinks && content.footerLinks && content.footerLinks.biz) {
         setText('footer-biz-title', content.footerLinks.biz.title);
         content.footerLinks.biz.links.forEach(link => {
             const li = document.createElement('li');
             li.innerHTML = `<a href="${link.url}">${link.text}</a>`;
-            footerBizLinks.appendChild(li); // 'appendChild' 호출
+            footerBizLinks.appendChild(li); 
         });
     }
     
-    // [수정됨] footerSupportLinks가 null이 아닐 때만 실행
     if (footerSupportLinks && content.footerLinks && content.footerLinks.support) {
         setText('footer-support-title', content.footerLinks.support.title);
         content.footerLinks.support.links.forEach(link => {
             const li = document.createElement('li');
             li.innerHTML = `<a href="${link.url}">${link.text}</a>`;
-            footerSupportLinks.appendChild(li); // 'appendChild' 호출
+            footerSupportLinks.appendChild(li);
         });
     }
-
 
     // --- 2. 페이지별 콘텐츠 ---
     const pageId = document.body.id;
 
     if (pageId === 'page-index' && content.index) {
         const p = content.index;
-        // Hero
         if (p.hero) {
             setText('hero-line1', p.hero.line1);
             setHTML('hero-title', p.hero.title);
             setText('hero-line2', p.hero.line2);
         }
         
-        // Contact (정적 텍스트 + 데이터 값)
         if (p.contact) {
             setText('contact-title', p.contact.title);
             setText('contact-subtitle', p.contact.subtitle);
@@ -235,16 +224,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             setText('contact-public', p.contact.publicTransport);
             setText('contact-car', p.contact.car);
         
-            // Contact (동적 리스트)
             const publicList = document.getElementById('contact-public-list');
             const carList = document.getElementById('contact-car-list');
-            // [수정됨] publicList가 null이 아닐 때만 실행
             if (publicList && p.contact.publicList) p.contact.publicList.forEach(text => publicList.innerHTML += `<li>${text}</li>`);
-            // [수정됨] carList가 null이 아닐 때만 실행
             if (carList && p.contact.carList) p.contact.carList.forEach(text => carList.innerHTML += `<li>${text}</li>`);
         }
 
-        // Support (정적)
         if (p.support) {
             setText('tab-news', p.support.tabNews);
             setText('tab-inquiry', p.support.tabInquiry);
@@ -263,17 +248,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             setText('faq-subtitle', p.support.faqSubtitle);
         }
 
-        // Support (동적 목록)
         const newsContainer = document.getElementById('news-list-container');
         const faqContainer = document.getElementById('faq-list-container');
-        // [수정됨] newsContainer가 null이 아닐 때만 실행
         if (newsContainer && content.index.news) content.index.news.forEach(item => newsContainer.appendChild(createNewsItem(item)));
-        // [수정됨] faqContainer가 null이 아닐 때만 실행
         if (faqContainer && content.index.faq) content.index.faq.forEach(item => faqContainer.appendChild(createFaqItem(item)));
     } 
     else if (pageId === 'page-about' && content.about) {
         const p = content.about;
-        // 정적
         if (p.ceo) {
             setText('ceo-badge', p.ceo.badge);
             setText('ceo-title', p.ceo.title);
@@ -300,14 +281,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             setHTML('certs-summary', p.certs.summary);
         }
 
-        // 동적 (연혁)
         const historyContainer = document.getElementById('history-list-container');
-        // [수정됨] historyContainer가 null이 아닐 때만 실행
         if (historyContainer && content.about.historyList) content.about.historyList.forEach(group => historyContainer.appendChild(createHistoryGroup(group)));
     } 
     else if (pageId === 'page-experience' && content.experience) {
         const p = content.experience;
-        // 정적
         if (p.main) {
             setText('exp-main-badge', p.main.badge);
             setText('exp-main-title', p.main.title);
@@ -325,26 +303,18 @@ document.addEventListener("DOMContentLoaded", async () => {
             setText('gallery-subtitle', p.projects.gallerySubtitle);
         }
 
-        // 동적 (사업분야 카드 리스트)
         const itsList = document.getElementById('its-list-container');
         const safetyList = document.getElementById('safety-list-container');
         const telecomList = document.getElementById('telecom-list-container');
-        // [수정됨] itsList가 null이 아닐 때만 실행
         if (itsList && p.cards && p.cards.itsList) p.cards.itsList.forEach(text => itsList.appendChild(createCardListItem(text)));
-        // [수정됨] safetyList가 null이 아닐 때만 실행
         if (safetyList && p.cards && p.cards.safetyList) p.cards.safetyList.forEach(text => safetyList.appendChild(createCardListItem(text)));
-        // [수정됨] telecomList가 null이 아닐 때만 실행
         if (telecomList && p.cards && p.cards.telecomList) p.cards.telecomList.forEach(text => telecomList.appendChild(createCardListItem(text)));
         
-        // 동적 (사업 실적)
-        // [수정됨] 'experience.html'에 정의된 'project-list-container-wrapper' ID를 찾음
         const projectContainer = document.getElementById('project-list-container-wrapper'); 
-        // [수정됨] projectContainer가 null이 아닐 때만 실행
         if (projectContainer && content.experience.projectList) content.experience.projectList.forEach(group => projectContainer.appendChild(createProjectGroup(group)));
     }
     else if (pageId === 'page-tech' && content.tech) {
         const p = content.tech;
-        // 정적
         if (p.main) {
             setText('tech-main-badge', p.main.badge);
             setText('tech-main-title', p.main.title);
@@ -367,16 +337,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             setText('datasheet-subtitle', p.datasheet.subtitle);
             
             document.querySelectorAll('.btn-download').forEach(btn => btn.textContent = p.datasheet.btnDownload);
-            document.querySelectorAll('.btn-view').forEach(btn => btn.textContent = p.datasheet.btnView);
+            document.querySelectorAll('.btn-view').forEach(btn => btn.textContent = p.datasTsheet.btnView);
         }
 
-        // 동적 (특허 리스트)
         const patentContainer = document.getElementById('patent-list-container');
-        // [수정됨] patentContainer가 null이 아닐 때만 실행
         if (patentContainer && content.tech.patentList) content.tech.patentList.forEach(item => patentContainer.appendChild(createPatentRow(item)));
     }
-})
-.catch(error => {
-    // 최종 오류 처리
-    console.error('콘텐츠 로더 실행 중 최종 오류:', error);
 });
