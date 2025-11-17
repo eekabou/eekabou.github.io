@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기술연구소 - 휴먼시스템즈</title>
+    
+    <link rel="stylesheet" href="../main/style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <script src="../main/script.js" defer></script>
+    <script src="tech.js" defer></script>
+    <script src="../main/content-loader.js" defer></script>
+</head>
+<body id="page-tech">
+
+    <header>
+        <div class="container">
+            <a href="../main/index.html" class="logo">
+                <span id="nav-company-name">...</span>
+                <span id="nav-company-name-en">...</span>
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="../aboutCompany/aboutCompany.html" id="nav-link-about">...</a></li>
+                    <li><a href="../experience/experience.html" id="nav-link-experience">...</a></li>
+                    <li><a href="tech.html" class="active" id="nav-link-tech">...</a></li>
+                </ul>
+            </nav>
+
+            <button class="mobile-nav-toggle" aria-label="메뉴 열기">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-times" style="display: none;"></i>
+            </button>
+        </div>
+
+        <div class="dropdown-mega-wrapper">
+            <div class="container">
+                <div class="dropdown-mega-content">
+                    <div class="dropdown-column">
+                        <ul>
+                            <li><a href="../aboutCompany/aboutCompany.html#ceo-profile">CEO 인사말</a></li>
+                            <li><a href="../aboutCompany/aboutCompany.html#history">연혁</a></li>
+                            <li><a href="../aboutCompany/aboutCompany.html#org-chart">조직도</a></li>
+                            <li><a href="../aboutCompany/aboutCompany.html#certifications">인증 및 수상</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-column">
+                        <ul>
+                            <li><a href="../experience/experience.html#its">ITS</a></li>
+                            <li><a href="../experience/experience.html#safety">안전시설물</a></li>
+                            <li><a href="../experience/experience.html#telecom">통신장비 제작</a></li>
+                            <li><a href="../experience/experience.html#project-experience">사업실적</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-column">
+                         <ul>
+                            <li><a href="#patents">보유기술</a></li>
+                            <li><a href="#ip">지적재산권</a></li>
+                            <li><a href="#research">연구활동</a></li>
+                            <li><a href="#datasheet">자료실</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content-wrapper business-section">
+        <div class="container">
+            
+            <div class="section-header">
+                <span class="part-badge" id="tech-main-badge">...</span>
+                <h2 class="business-title" id="tech-main-title">...</h2>
+                <p class="subtitle" id="tech-main-subtitle">...</p>
+            </div>
+
+            <section id="patents">
+                <h3 id="patents-title">...</h3>
+                <p class="subtitle" id="patents-subtitle">...</p>
+
+                <table class="patent-table">
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>구분</th>
+                            <th>등재</th>
+                            <th>특허명</th>
+                            <th>특허/출원번호</th>
+                            <th>출원일자</th>
+                            <th>등록일자</th>
+                            <th>비고</th>
+                        </tr>
+                    </thead>
+                    <tbody id="patent-list-container">
+                        </tbody>
+                </table>
+            </section>
+            
+            <section id="ip">
+                <h3 id="ip-title">...</h3>
+                <p id="ip-placeholder">...</p>
+            </section>
+
+            <section id="research">
+                <h3 id="research-title">...</h3>
+                <p id="research-placeholder">...</p>
+            </section>
+
+            <section id="datasheet">
+                <h3 id="datasheet-title">...</h3>
+                <p class="subtitle" id="datasheet-subtitle">...</p>
+                
+                <div class="business-grid-wrapper">
+                    
+                    <div class="business-card">
+                        <img src="../../images/중소기업_확인서.png" alt="x36 PTZ 카메라 제품 소개서">
+                        <div class="card-content">
+                            <h4>제품 1: x36 PTZ Camera - 제품 소개</h4>
+                            <p>Model: HS-P236R</p>
+                            <div class="button-group">
+                                <a href="#" class="btn btn-primary btn-download">...</a>
+                                <a href="#" class="btn btn-secondary btn-view">...</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="business-card">
+                        <img src="../../images/중소기업_확인서.png" alt="x36 PTZ 카메라 제품 사양">
+                        <div class="card-content">
+                            <h4>제품 1: x36 PTZ Camera - 사양</h4>
+                            <p>Model: HS-P236R</p>
+                            <a href="#" class="btn btn-primary btn-download">...</a>
+                        </div>
+                    </div>
+                    
+                    <div class="business-card">
+                        <img src="https://via.placeholder.com/800x1100.png?text=제품+2+소개서" alt="제품 2 소개서">
+                        <div class="card-content">
+                            <h4>제품 2: VMS 솔루션 - 제품 소개</h4>
+                            <p>Model: HS-VMS200</p>
+                            <a href="#" class="btn btn-primary btn-download">...</a>
+                        </div>
+                    </div>
+
+                    <div class="business-card">
+                        <img src="https://via.placeholder.com/800x1100.png?text=제품+2+사양서" alt="제품 2 사양서">
+                        <div class="card-content">
+                            <h4>제품 2: VMS 솔루션 - 사양</h4>
+                            <p>Model: HS-VMS200</p>
+                            <a href="#" class="btn btn-primary btn-download">...</a>
+                        </div>
+                    </div>
+                    
+                    <div class="business-card">
+                        <img src="https://via.placeholder.com/800x1100.png?text=제품+3+소개서" alt="제품 3 소개서">
+                        <div class="card-content">
+                            <h4>제품 3: LPR 시스템 - 제품 소개</h4>
+                            <p>Model: HS-LPR-01</p>
+                            <a href="#" class="btn btn-primary btn-download">...</a>
+                        </div>
+                    </div>
+
+                    <div class="business-card">
+                        <img src="https://via.placeholder.com/800x1100.png?text=제품+3+사양서" alt="제품 3 사양서">
+                        <div class="card-content">
+                            <h4>제품 3: LPR 시스템 - 사양</h4>
+                            <p>Model: HS-LPR-01</p>
+                            <a href="#" class="btn btn-primary btn-download">...</a>
+                        </div>
+                    </div>
+                    
+                    <div class="business-card">
+                        <img src="https://via.placeholder.com/800x1100.png?text=제품+4+소개서" alt="제품 4 소개서">
+                        <div class="card-content">
+                            <h4>제품 4: 통신장비 - 제품 소개</h4>
+                            <p>Model: HS-TCS-X1</p>
+                            <a href="#" class="btn btn-primary btn-download">...</a>
+                        </div>
+                    </div>
+
+                    <div class="business-card">
+                        <img src="https://via.placeholder.com/800x1100.png?text=제품+4+사양서" alt="제품 4 사양서">
+                        <div class="card-content">
+                            <h4>제품 4: 통신장비 - 사양</h4>
+                            <p>Model: HS-TCS-X1</p>
+                            <a href="#" class="btn btn-primary btn-download">...</a>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-column footer-info">
+                    <h3 id="footer-company-name">...</h3>
+                    <ul>
+                        <li><i class="fas fa-location-dot"></i><span id="footer-address">...</span></li>
+                        <li><i class="fas fa-phone"></i><span id="footer-phone">...</span></li>
+                        <li><i class="fas fa-envelope"></i><span id="footer-email">...</span></li>
+                    </ul>
+                </div>
+                <div class="footer-column footer-links">
+                    <h4 id="footer-biz-title">...</h4>
+                    <ul id="footer-biz-links">
+                        </ul>
+                </div>
+                <div class="footer-column footer-links">
+                    <h4 id="footer-support-title">...</h4>
+                    <ul id="footer-support-links">
+                        </ul>
+                </div>
+                <div class="footer-column footer-hours">
+                    <h4>영업시간</h4>
+                    <ul>
+                        <li id="footer-hours-1">...</li>
+                        <li id="footer-hours-2">...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="copyright" id="footer-copyright">...</p>
+                <p class="legal" id="footer-legal">...</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

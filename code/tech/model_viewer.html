@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 모델 뷰어</title>
+    <style>
+        /* 팝업창의 여백을 제거합니다. */
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+        canvas {
+            display: block;
+        }
+        /* 로딩/오류 메시지 스타일 (선택 사항) */
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border-radius: 5px;
+            font-family: sans-serif;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body style="margin: 0; overflow: hidden;">
+
+    <div id="info" style="display: none;">3D 모델을 로드하지 못했습니다. 대신 파란색 큐브를 표시합니다.</div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+        }
+      }
+    </script>
+
+    <script type="module">
+      import * as THREE from 'three';
+      // 사용자가 3D 모델을 회전/확대/축소할 수 있게 하는 '궤도 컨트롤'
+      import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+      // 3D 모델(GLB/GLTF)을 로드하는 '로더'
+      import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+      let scene, camera, renderer, controls;
+
+      function init() {
+          // 1. Scene (장면) 생성
+          scene = new THREE.Scene();
+          scene.background = new THREE.Color(0xf0f0f0); // 연한 회색 배경
+
+          // 2. Camera (카메라) 생성
+          camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+          camera.position.z = 5; // 카메라를 Z축으로 5만큼 뒤로 이동
+
+          // 3. Renderer (렌더러) 생성
+          renderer = new THREE.WebGLRenderer({ antialias: true });
+          renderer.setSize(window.innerWidth, window.innerHeight);
+          document.body.appendChild(renderer.domElement); // 캔버스를 body에 추가
+
+          // 4. Controls (궤도 컨트롤) 생성
+          controls = new OrbitControls(camera, renderer.domElement);
+          controls.enableDamping = true; // 부드러운 움직임 효과
+          controls.dampingFactor = 0.05;
+
+          // 5. Lighting (조명) 생성
+          scene.add(new THREE.AmbientLight(0xffffff, 0.8)); // 전체적으로 밝게
+          const dirLight = new THREE.DirectionalLight(0xffffff, 2); // 그림자를 위한 직사광선
+          dirLight.position.set(5, 10, 7.5);
+          scene.add(dirLight);
+
+          // 6. Model Loading (모델 로딩)
+          const loader = new GLTFLoader();
+          
+          // 'camera_model.glb' 파일을 로드 시도
+          // (주의: 이 파일이 'tech/' 폴더에 실제로 존재해야 합니다.)
+          loader.load(
+            'bracket.glb', // <-- 여기에 실제 3D 모델 파일 경로를 넣으세요.
+            
+            // (성공 시)
+            (gltf) => {
+              console.log('3D 모델 로드 성공!');
+              scene.add(gltf.scene);
+            },
+            
+            // (진행 중 - 현재 사용 안 함)
+            undefined, 
+            
+            // (오류 발생 시 - 임시 큐브 생성)
+            (error) => {
+              console.warn('3D 모델 "camera_model.glb" 로드 실패. 임시 큐브를 표시합니다.');
+              document.getElementById('info').style.display = 'block';
+              
+              const geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+              const material = new THREE.MeshStandardMaterial({ color: 0x004a9e }); // 회사 테마 색상
+              const cube = new THREE.Mesh(geometry, material);
+              scene.add(cube);
+            }
+          );
+
+          // 7. 창 크기 조절 이벤트 핸들러
+          window.addEventListener('resize', onWindowResize);
+
+          // 8. 애니메이션 루프 시작
+          animate();
+      }
+
+      // 애니메이션 루프
+      function animate() {
+          requestAnimationFrame(animate);
+          controls.update(); // 컨트롤 업데이트 (부드러운 움직임)
+          renderer.render(scene, camera); // 장면 렌더링
+      }
+
+      // 창 크기 조절 시
+      function onWindowResize() {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      // 스크립트 실행
+      init();
+    </script>
+
+</body>
+</html>
