@@ -1,136 +1,139 @@
-// [수정됨] 스크립트 전체를 DOMContentLoaded 이벤트 리스너로 묶어 안정성을 확보합니다.
-document.addEventListener("DOMContentLoaded", async () => {
+// [수정됨] 스크립트 전체를 감싸던 DOMContentLoaded 이벤트 리스너를 제거했습니다.
+// HTML의 <script defer> 속성이 DOM 로딩을 보장합니다.
+
+// --- 헬퍼 함수 ---
+const setText = (id, text) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+};
+
+const setHTML = (id, html) => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = html;
+};
+
+// --- 동적 목록 생성 함수들 ---
+
+// index.html: 뉴스 생성
+const createNewsItem = (item) => {
+    const a = document.createElement('a');
+    a.href = '#'; 
+    a.className = 'support-card';
+    a.innerHTML = `
+        <div class="card-left">
+            <span class="tag ${item.type}">${item.typeText}</span>
+            <span class="date">${item.date}</span>
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+        </div>
+        <div class="card-right">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+    `;
+    return a;
+};
+
+// index.html: FAQ 생성
+const createFaqItem = (item) => {
+    const div = document.createElement('div');
+    div.className = 'faq-item';
+    div.innerHTML = `
+        <button class="faq-question">
+            <span>Q. ${item.q}</span>
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-answer">
+            <p>${item.a}</p>
+        </div>
+    `;
+    return div;
+};
+
+// aboutCompany.html: 연혁 그룹 생성
+const createHistoryGroup = (group) => {
+    const li = document.createElement('li');
+    li.className = 'history-year-group';
     
-    // --- 헬퍼 함수 ---
-    const setText = (id, text) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = text;
-    };
-    
-    const setHTML = (id, html) => {
-        const el = document.getElementById(id);
-        if (el) el.innerHTML = html;
-    };
+    const itemsHTML = group.items.map(item => `
+        <li class="history-item ${item.special ? 'special-award' : ''}">
+            <span class="month ${item.month ? '' : 'no-month'}">${item.month}</span>
+            <p class="description">${item.desc}</p>
+        </li>
+    `).join('');
 
-    // --- 동적 목록 생성 함수들 ---
-    
-    // index.html: 뉴스 생성
-    const createNewsItem = (item) => {
-        const a = document.createElement('a');
-        a.href = '#'; 
-        a.className = 'support-card';
-        a.innerHTML = `
-            <div class="card-left">
-                <span class="tag ${item.type}">${item.typeText}</span>
-                <span class="date">${item.date}</span>
-                <h3>${item.title}</h3>
-                <p>${item.description}</p>
-            </div>
-            <div class="card-right">
-                <i class="fas fa-chevron-right"></i>
-            </div>
-        `;
-        return a;
-    };
+    li.innerHTML = `
+        <div class="year-marker">
+            <span class="year">- ${group.year}</span>
+        </div>
+        <ul class="history-items">
+            ${itemsHTML}
+        </ul>
+    `;
+    return li;
+};
 
-    // index.html: FAQ 생성
-    const createFaqItem = (item) => {
-        const div = document.createElement('div');
-        div.className = 'faq-item';
-        div.innerHTML = `
-            <button class="faq-question">
-                <span>Q. ${item.q}</span>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="faq-answer">
-                <p>${item.a}</p>
-            </div>
-        `;
-        return div;
-    };
+// experience.html: 사업분야 카드 리스트 아이템 생성
+const createCardListItem = (text) => {
+    const li = document.createElement('li');
+    li.innerHTML = `<i class="fa-solid fa-check"></i> ${text}`;
+    return li;
+};
 
-    // aboutCompany.html: 연혁 그룹 생성
-    const createHistoryGroup = (group) => {
-        const li = document.createElement('li');
-        li.className = 'history-year-group';
-        
-        const itemsHTML = group.items.map(item => `
-            <li class="history-item ${item.special ? 'special-award' : ''}">
-                <span class="month ${item.month ? '' : 'no-month'}">${item.month}</span>
-                <p class="description">${item.desc}</p>
-            </li>
-        `).join('');
+// experience.html: 사업 실적 그룹 생성
+const createProjectGroup = (group) => {
+    const section = document.createElement('section');
+    section.className = 'project-block';
 
-        li.innerHTML = `
-            <div class="year-marker">
-                <span class="year">- ${group.year}</span>
-            </div>
-            <ul class="history-items">
+    const itemsHTML = group.items.map(item => `
+        <tr>
+            <td class="date-col">${item.date}</td>
+            <td class="desc-col">${item.desc}</td>
+        </tr>
+    `).join('');
+
+    section.innerHTML = `
+        <div class="project-header">
+            <span class="year">${group.year}년도</span>
+            <span class="title">${group.title}</span>
+        </div>
+        <table class="project-list">
+            <tbody>
                 ${itemsHTML}
-            </ul>
-        `;
-        return li;
-    };
+            </tbody>
+        </table>
+    `;
+    return section;
+};
 
-    // experience.html: 사업분야 카드 리스트 아이템 생성
-    const createCardListItem = (text) => {
-        const li = document.createElement('li');
-        li.innerHTML = `<i class="fa-solid fa-check"></i> ${text}`;
-        return li;
-    };
+// tech.html: 특허 테이블 행 생성
+const createPatentRow = (item) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+        <td>${item.id}</td>
+        <td>${item.type}</td>
+        <td>${item.status}</td>
+        <td>${item.name}</td>
+        <td>${item.number}</td>
+        <td>${item.date_applied}</td>
+        <td>${item.date_registered}</td>
+        <td>${item.note}</td>
+    `;
+    return tr;
+};
 
-    // experience.html: 사업 실적 그룹 생성
-    const createProjectGroup = (group) => {
-        const section = document.createElement('section');
-        section.className = 'project-block';
-
-        const itemsHTML = group.items.map(item => `
-            <tr>
-                <td class="date-col">${item.date}</td>
-                <td class="desc-col">${item.desc}</td>
-            </tr>
-        `).join('');
-
-        section.innerHTML = `
-            <div class="project-header">
-                <span class="year">${group.year}년도</span>
-                <span class="title">${group.title}</span>
-            </div>
-            <table class="project-list">
-                <tbody>
-                    ${itemsHTML}
-                </tbody>
-            </table>
-        `;
-        return section;
-    };
-
-    // tech.html: 특허 테이블 행 생성
-    const createPatentRow = (item) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${item.id}</td>
-            <td>${item.type}</td>
-            <td>${item.status}</td>
-            <td>${item.name}</td>
-            <td>${item.number}</td>
-            <td>${item.date_applied}</td>
-            <td>${item.date_registered}</td>
-            <td>${item.note}</td>
-        `;
-        return tr;
-    };
-    
-    // --- [수정됨] 콘텐츠 로딩 로직 ---
+// --- [수정됨] 즉시 실행 함수(IIFE)로 메인 로직을 감싸서 실행 ---
+(async () => {
     let content = null;
     try {
-        // [수정됨] 각 HTML 페이지의 상대 경로에 맞게 content.json을 찾습니다.
-        // aboutCompany.html, experience.html, tech.html 등은 '../main/content.json'
-        let fetchPath = '../main/content.json';
-        
-        // main/index.html의 경우 경로가 'content.json'
-        if (document.body.id === 'page-index') {
-            fetchPath = 'content.json';
+        // [수정됨] 현재 페이지 경로에 따라 content.json 경로를 동적으로 결정
+        const path = window.location.pathname;
+        let fetchPath;
+
+        if (path.includes('/aboutCompany/') || path.includes('/experience/') || path.includes('/tech/')) {
+            fetchPath = '../main/content.json';
+        } else {
+            // /main/index.html 또는 /main/ 경우
+            fetchPath = 'content.json'; 
         }
 
         const response = await fetch(fetchPath);
@@ -144,8 +147,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         return; // 콘텐츠 로딩 실패 시 스크립트 중단
     }
 
-    // --- [수정됨] DOM 조작 로직 ---
-    // (content가 성공적으로 로드된 경우에만 실행됩니다)
+    // --- DOM 조작 로직 (content가 성공적으로 로드된 경우에만 실행) ---
 
     // --- 1. 공통 콘텐츠 ---
     const c = content.common;
@@ -336,11 +338,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             setText('datasheet-title', p.datasheet.title);
             setText('datasheet-subtitle', p.datasheet.subtitle);
             
-            document.querySelectorAll('.btn-download').forEach(btn => btn.textContent = p.datasheet.btnDownload);
-            document.querySelectorAll('.btn-view').forEach(btn => btn.textContent = p.datasTsheet.btnView);
+            document.querySelectorAll('.btn-download').forEach(btn => {
+                if (p.datasheet.btnDownload) btn.textContent = p.datasheet.btnDownload;
+            });
+            document.querySelectorAll('.btn-view').forEach(btn => {
+                if (p.datasheet.btnView) btn.textContent = p.datasheet.btnView;
+            });
         }
 
         const patentContainer = document.getElementById('patent-list-container');
         if (patentContainer && content.tech.patentList) content.tech.patentList.forEach(item => patentContainer.appendChild(createPatentRow(item)));
     }
-});
+})(); // 즉시 실행
