@@ -2296,9 +2296,9 @@ html {
     header .logo {
         font-size: 20px; /* 로고 폰트 크기 축소 */
     }
-    header .logo span {
+    /* header .logo span {
         display: none; /* 작은 화면에서 영문 부제 숨기기 */
-    }
+    } */
 
     /* --- 2. index.html --- */
     
@@ -2560,4 +2560,5 @@ html {
 .contact-info .dept-list span {
     color: #555;
     line-height: 1.7;
+
 }
