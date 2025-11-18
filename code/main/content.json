@@ -4,7 +4,7 @@
     "companyNameEn": "Human Systems Co., Ltd.",
     "nav": {
       "about": "회사소개",
-      "experience": "사업",
+      "experience": "사업분야",
       "tech": "기술연구소"
     },
     "footer": {
@@ -497,3 +497,4 @@
   }
 
 }
+
