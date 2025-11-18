@@ -349,6 +349,4 @@ const createPatentRow = (item) => {
         const patentContainer = document.getElementById('patent-list-container');
         if (patentContainer && content.tech.patentList) content.tech.patentList.forEach(item => patentContainer.appendChild(createPatentRow(item)));
     }
-
 })(); // 즉시 실행
-
