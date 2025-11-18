@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>휴먼시스템즈</title>
+    <link rel="stylesheet" href="main/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <script src="main/script.js" defer></script>
+    <script src="main/content-loader.js" defer></script>
+</head>
+<body id="page-index">
+
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span id="nav-company-name">...</span>
+                <span id="nav-company-name-en">...</span>
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="aboutCompany/aboutCompany.html" id="nav-link-about">...</a></li>
+                    <li><a href="experience/experience.html" id="nav-link-experience">...</a></li>
+                    <li><a href="tech/tech.html" id="nav-link-tech">...</a></li>
+                </ul>
+            </nav>
+
+            <button class="mobile-nav-toggle" aria-label="메뉴 열기">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-times" style="display: none;"></i>
+            </button>
+        </div>
+
+        <div class="dropdown-mega-wrapper">
+            <div class="container">
+                <div class="dropdown-mega-content">
+                    <div class="dropdown-column">
+                        <ul>
+                            <li><a href="aboutCompany/aboutCompany.html#ceo-profile">CEO 인사말</a></li>
+                            <li><a href="aboutCompany/aboutCompany.html#history">연혁</a></li>
+                            <li><a href="aboutCompany/aboutCompany.html#org-chart">조직도</a></li>
+                            <li><a href="aboutCompany/aboutCompany.html#certifications">인증 및 수상</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-column">
+                        <ul>
+                            <li><a href="#">ITS</a></li>
+                            <li><a href="#">안전시설물</a></li>
+                            <li><a href="#">통신장비 제작</a></li>
+                            <li><a href="experience/experience.html#project">사업실적</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-column">
+                         <ul>
+                            <li><a href="tech/tech.html#patents">보유기술</a></li>
+                            <li><a href="tech/tech.html#ip">지적재산권</a></li>
+                            <li><a href="tech/tech.html#research">연구활동</a></li>
+                            <li><a href="tech/tech.html#datasheet">자료실</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+        
+        <div class="hero-background-slider">
+            <div class="hero-slide active" style="background-image: url('../images/company.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('../images/믈라.png');"></div>
+            <div class="hero-slide" style="background-image: url('../images/로즈몬티스.png');"></div>
+            <div class="hero-slide" style="background-image: url('../images/케오.png');"></div>
+            <div class="hero-slide" style="background-image: url('../images/머드락.png');"></div>
+            </div>
+
+        <div class="hero-content">
+            <p id="hero-line1">...</p>
+            <h1 id="hero-title">...</h1>
+            <p id="hero-line2">...</p>
+        </div>
+    </section>
+        
+        <section class="contact">
+            <div class="container">
+                <h2 id="contact-title">...</h2>
+                <p class="subtitle" id="contact-subtitle">...</p>
+
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3 id="contact-info-title">...</h3>
+                        <ul>
+                            <li>
+                                <strong id="contact-hq">...</strong>
+                                <span id="contact-address-text">...</span>
+                            </li>
+                            <li>
+                                <strong id="contact-phone">...</strong>
+                                <span id="contact-phone-val">...</span>
+                            </li>
+                            <li>
+                                <strong id="contact-fax">...</strong>
+                                <span id="contact-fax-val">...</span>
+                            </li>
+                            <li>
+                                <strong id="contact-email">...</strong>
+                                <span id="contact-email-val">...</span>
+                            </li>
+                            <li>
+                                <strong id="contact-hours">...</strong>
+                                <span id="contact-hours-val">...</span>
+                            </li>
+                        </ul>
+
+                        <h4 class="dept-contact-title" id="contact-dept-title">...</h4>
+                        <ul class="dept-list">
+                            <li>
+                                <strong id="contact-sales-dept">...</strong>
+                                <span id="contact-sales-val">...</span>
+                            </li>
+                            <li>
+                                <strong id="contact-tech-dept">...</strong>
+                                <span id="contact-tech-val">...</span>
+                            </li>
+                            <li>
+                                <strong id="contact-rnd-dept">...</strong>
+                                <span id="contact-rnd-val">...</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="contact-directions">
+                        <h3 id="contact-directions-title">...</h3>
+                        
+                        <h4 id="contact-public">...</h4>
+                        <ul id="contact-public-list">
+                            </ul>
+
+                        <h4 id="contact-car">...</h4>
+                        <ul id="contact-car-list">
+                            </ul>
+
+                        <div class="map-placeholder">
+                            지도 영역
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="customer-support">
+            <div class="container">
+                <div class="support-content-box">
+                    <nav class="support-tabs">
+                        <div class="tabs-container">
+                            <a href="#" class="tab-item active" data-tab="news">
+                                <i class="fa-regular fa-newspaper"></i>
+                                <span id="tab-news">...</span>
+                            </a>
+                            <a href="#" class="tab-item" data-tab="inquiry">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                                <span id="tab-inquiry">...</span>
+                            </a>
+                            <a href="#" class="tab-item" data-tab="faq">
+                                <i class="fa-regular fa-circle-question"></i>
+                                <span id="tab-faq">...</span>
+                            </a>
+                        </div>
+                    </nav>
+    
+                    <div class="support-content-wrapper">
+                        
+                        <div class="tab-content active" data-tab="news">
+                            <div class="support-card-list" id="news-list-container">
+                                </div>
+                        </div>
+
+                        <div class="tab-content" data-tab="inquiry">
+                            <form action="#" class="inquiry-form">
+                                <div class="form-header">
+                                    <h3 id="inquiry-title">...</h3>
+                                    <p id="inquiry-subtitle">...</p>
+                                </div>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="name" id="label-name">...</label>
+                                        <input type="text" id="name" placeholder="홍길동" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="company" id="label-company">...</label>
+                                        <input type="text" id="company" placeholder="(주)회사명">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email" id="label-email">...</label>
+                                        <input type="email" id="email" placeholder="example@company.com" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone" id="label-phone">...</label>
+                                        <input type="text" id="phone" placeholder="010-0000-0000" required>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label for="subject" id="label-subject">...</label>
+                                        <input type="text" id="subject" placeholder="문의 제목을 입력하세요" required>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label for="message" id="label-message">...</label>
+                                        <textarea id="message" rows="8" placeholder="문의하실 내용을 상세히 작성해 주세요" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-secondary" id="btn-cancel">...</button>
+                                    <button type="submit" class="btn btn-primary" id="btn-submit">...</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="tab-content" data-tab="faq">
+                            <div class="form-header">
+                                <h3 id="faq-title">...</h3>
+                                <p id="faq-subtitle">...</p>
+                            </div>
+                             <div class="faq-accordion" id="faq-list-container"> 
+                                </div> 
+                        </div>
+
+                    </div>
+                </div> 
+            </div>
+        </section>
+
+        </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-column footer-info">
+                    <h3 id="footer-company-name">...</h3>
+                    <ul>
+                        <li>
+                            <i class="fas fa-location-dot"></i>
+                            <span id="footer-address">...</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span id="footer-phone">...</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span id="footer-email">...</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer-column footer-links">
+                    <h4 id="footer-biz-title">...</h4>
+                    <ul id="footer-biz-links">
+                        </ul>
+                </div>
+
+                <div class="footer-column footer-links">
+                    <h4 id="footer-support-title">...</h4>
+                    <ul id="footer-support-links">
+                        </ul>
+                </div>
+
+                <div class="footer-column footer-hours">
+                    <h4>영업시간</h4>
+                    <ul>
+                        <li id="footer-hours-1">...</li>
+                        <li id="footer-hours-2">...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="copyright" id="footer-copyright">...</p>
+                <p class="legal" id="footer-legal">...</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

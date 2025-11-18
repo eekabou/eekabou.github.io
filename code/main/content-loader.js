@@ -133,7 +133,7 @@ const createPatentRow = (item) => {
             fetchPath = '../main/content.json';
         } else {
             // /main/index.html 또는 /main/ 경우
-            fetchPath = 'content.json'; 
+            fetchPath = 'main/content.json'; 
         }
 
         const response = await fetch(fetchPath);
