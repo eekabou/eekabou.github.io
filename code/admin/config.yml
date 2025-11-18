@@ -1,7 +1,7 @@
 # 1. 백엔드 설정 (GitHub Pages용)
 backend:
   name: github 
-  repo: eekabou/code 
+  repo: eekabou/eekabou.github.io
   branch: main 
 
 # 2. 미디어(이미지) 업로드 설정
