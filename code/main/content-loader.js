@@ -133,7 +133,7 @@ const createPatentRow = (item) => {
             fetchPath = '../main/content.json';
         } else {
             // /main/index.html 또는 /main/ 경우
-            fetchPath = 'main/content.json'; 
+            fetchPath = 'content.json'; 
         }
 
         const response = await fetch(fetchPath);
@@ -349,4 +349,5 @@ const createPatentRow = (item) => {
         const patentContainer = document.getElementById('patent-list-container');
         if (patentContainer && content.tech.patentList) content.tech.patentList.forEach(item => patentContainer.appendChild(createPatentRow(item)));
     }
+
 })(); // 즉시 실행
